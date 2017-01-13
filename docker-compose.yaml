@@ -1,0 +1,41 @@
+version: '2'
+services:
+  web:
+    build:
+      context: .
+    image: ridesoft_lamp:0.2
+    volumes:
+      - /Volumes/Mothership_Mauri/lamp_dev/src:/var/www/html
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    networks:
+      - ridesoft
+
+  db:
+    image: mysql:5.5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: ridesoft
+      MYSQL_PASSWORD: ridesoft
+      MYSQL_DATABASE: ridesoft
+    volumes:
+      - /Volumes/Mothership_Mauri/lamp_dev/data/mysql:/data
+    ports:
+      - 3306:3306
+    networks:
+      ridesoft:
+        aliases:
+          - mysql_db
+  redis:
+    image: redis
+    volumes:
+      - /Volumes/Mothership_Mauri/lamp_dev/data/redis:/var/lib/redis
+    networks:
+      ridesoft:
+        aliases:
+          - redis
+networks:
+  ridesoft:
+    driver: bridge
