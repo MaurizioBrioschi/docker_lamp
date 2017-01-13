@@ -5,7 +5,7 @@ services:
       context: .
     image: ridesoft_lamp:0.2
     volumes:
-      - /Volumes/Mothership_Mauri/lamp_dev/src:/var/www/html
+      - /path/to/myproject/src:/var/www/html
     ports:
       - "80:80"
       - "443:443"
@@ -21,7 +21,7 @@ services:
       MYSQL_PASSWORD: ridesoft
       MYSQL_DATABASE: ridesoft
     volumes:
-      - /Volumes/Mothership_Mauri/lamp_dev/data/mysql:/data
+      - /path/to/myproject/data/mysql:/data
     ports:
       - 3306:3306
     networks:
@@ -31,7 +31,7 @@ services:
   redis:
     image: redis
     volumes:
-      - /Volumes/Mothership_Mauri/lamp_dev/data/redis:/var/lib/redis
+      - /path/to/myproject/data/redis:/var/lib/redis
     networks:
       ridesoft:
         aliases:
