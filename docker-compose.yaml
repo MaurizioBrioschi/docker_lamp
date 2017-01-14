@@ -3,12 +3,13 @@ services:
   web:
     build:
       context: .
-    image: ridesoft_lamp:0.2
+    image: ridesoft_lamp:1.0
     volumes:
-      - /Volumes/Mothership_Mauri/lamp_dev/src:/var/www/html
+      - ${PROJECT_VOLUME}/src:/var/www/html/${PROJECT_NAME}
     ports:
       - "80:80"
-      - "443:443"
+    domainname: ${PROJECT_NAME}.docker
+    hostname: ${PROJECT_NAME}
     restart: always
     networks:
       - ridesoft
@@ -21,7 +22,7 @@ services:
       MYSQL_PASSWORD: ridesoft
       MYSQL_DATABASE: ridesoft
     volumes:
-      - /Volumes/Mothership_Mauri/lamp_dev/data/mysql:/data
+      - ${PROJECT_VOLUME}/data/mysql:/data
     ports:
       - 3306:3306
     networks:
@@ -31,7 +32,7 @@ services:
   redis:
     image: redis
     volumes:
-      - /Volumes/Mothership_Mauri/lamp_dev/data/redis:/var/lib/redis
+      - ${PROJECT_VOLUME}/data/redis:/var/lib/redis
     networks:
       ridesoft:
         aliases:
